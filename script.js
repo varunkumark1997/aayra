@@ -103,6 +103,19 @@ function makePreferencesCall()
           amount = parseInt(document.getElementById('amount').value);
 
           console.log(typeof amount)
+
+          if (amount === 101)
+          {
+              speakNRead('Your preferred UPI instrument is facing downtime',() => {
+                 speakNRead('Initiating your preferred Visa card payment ending with 1 1 1 1...',()=>{
+                cardPaymentData = generatePaymentData('card', '+919902529070', 'qa.testing@razorpay.com', '4444', 'INR', cardData);
+              makePaymentAPICall(cardPaymentData,'card', 'https://api-web-varun-k.dev.razorpay.in/v1/payments/create/ajax?key_id=rzp_test_iFxtpfbj227eNO');
+            })()
+              })()
+
+              return
+          }
+
           if (amount > 1 && amount < 1000)
           {
               speakNRead('Initiating UPI payment at HDFC bank',)()
@@ -208,6 +221,7 @@ function generatePaymentData(method, contact, email1, amount1, currency1, additi
     data.vpa = encodeURIComponent(vpa);
     data.save = encodeURIComponent(save);
     data['upi[flow]'] = encodeURIComponent(flow);
+    data['force_terminal_id']=encodeURIComponent("term_Ky2EKzBkq6LriK")
   }
 
   // Construct the form data string
@@ -428,12 +442,12 @@ if ('webkitSpeechRecognition' in window) {
   recognition.onerror = function(event) {
     console.error('Recognition error:', event.error);
   };
-  
+
 } else {
   console.error('Web Speech API is not supported in this browser.');
 }
 
- let UPIID = false
+let UPIID = false
 let paymentInitiated = false
 function process(rawText) {
   let text = rawText.replace(/\s/g, "").replace(/\'/g, "");
