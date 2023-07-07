@@ -348,8 +348,7 @@ function handleUPIResponse(data) {
         // Further processing or actions based on the payment status
         if (typeof paymentStatus !== "undefined") {
           typeWriter(". . . . . . . . . .")
-        } else{
-          data = "";
+        } else{go9
           displayPaymentSuccess(data, "upi")
           success = true
           return
