@@ -348,8 +348,9 @@ function handleUPIResponse(data) {
         // Further processing or actions based on the payment status
         if (typeof paymentStatus !== "undefined") {
           typeWriter(". . . . . . . . . .")
-        } else{go9
+        } else{
           displayPaymentSuccess(data, "upi")
+          data = ""
           success = true
           return
         }
@@ -364,13 +365,16 @@ function handleUPIResponse(data) {
 
 function displayPaymentSuccess(data, method) {
   const amount = document.getElementById('amount').value;
+  const PID = data.razorpay_payment_id
+  console.log(data)
+  console.log(PID)
   readOutLoud("Payment SUccessful, redirecting to merchant site")
 
   setTimeout(() => {
   const successHTML = `
     <div class="success-message">
       <h3>Payment Successful!</h3>
-      <p>Transaction ID: ${data.razorpay_payment_id}</p>
+      <p>Transaction ID: ${PID}</p>
       <p>Amount:${amount} </p>
       <p>Payment Method: ${method}</p>
     </div>
